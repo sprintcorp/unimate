@@ -13,7 +13,7 @@ class ReminderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class ReminderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'subject' =>  'required|string',
+            'message' => 'required|string',
+            'reminder_time' => 'required|date|after:' . date('Y-m-d'),
         ];
     }
 }

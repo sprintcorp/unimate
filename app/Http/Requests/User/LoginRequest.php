@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class LoginRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,21 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
+        if (Route::current()->getName() == 'reset') {
+            return [
+                'email' => 'required|string|email|exists:users,email',
+            ];
+        }
+
+        if (Route::current()->getName() == 'password-reset') {
+            return [
+                'password' => 'required|string|min:8'
+            ];
+        }
+
         return [
-            //
+            'email' => 'required|string|email|exists:users,email',
+            'password' => 'required|string|min:8'
         ];
     }
 }

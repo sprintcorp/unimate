@@ -1,12 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\User\NoteTakeRequest;
+use App\Interfaces\Note;
 use App\Models\NoteTaker;
 use Illuminate\Http\Request;
 
 class NoteTakerController extends Controller
 {
+    protected $note;
+    public function __construct(Note $note)
+    {
+        $this->note = $note;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +21,9 @@ class NoteTakerController extends Controller
      */
     public function index()
     {
-        //
+        return $this->note->getNotes();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +31,9 @@ class NoteTakerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NoteTakeRequest $request)
     {
-        //
+        return $this->note->createNote($request->all());
     }
 
     /**
@@ -44,21 +42,11 @@ class NoteTakerController extends Controller
      * @param  \App\Models\NoteTaker  $noteTaker
      * @return \Illuminate\Http\Response
      */
-    public function show(NoteTaker $noteTaker)
+    public function show($id)
     {
-        //
+        return $this->note->getNote($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\NoteTaker  $noteTaker
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(NoteTaker $noteTaker)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +55,9 @@ class NoteTakerController extends Controller
      * @param  \App\Models\NoteTaker  $noteTaker
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NoteTaker $noteTaker)
+    public function update(NoteTakeRequest $request, $id)
     {
-        //
+        return $this->note->updateNote($request->all(),$id);
     }
 
     /**
@@ -78,8 +66,8 @@ class NoteTakerController extends Controller
      * @param  \App\Models\NoteTaker  $noteTaker
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NoteTaker $noteTaker)
+    public function destroy($id)
     {
-        //
+        return $this->note->deleteNote($id);
     }
 }

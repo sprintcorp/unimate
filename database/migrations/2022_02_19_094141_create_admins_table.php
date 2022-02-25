@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('other_name')->nullable();
             $table->string('phone', 20)->unique()->nullable();
             $table->string('image')->nullable();
+            $table->string('image_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

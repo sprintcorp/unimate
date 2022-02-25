@@ -40,27 +40,33 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
         });
 
         $this->renderable(function (ValidationException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>422], 422);
+            return $this->convertValidationExceptionToResponse($e, request());
         });
 
         $this->renderable(function (QueryException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>500], 500);
+            return response()->json(['error' =>$e->getMessage(),'code'=>500], 500);
         });
 
         $this->renderable(function (MethodNotAllowedHttpException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>405], 405);
+            return response()->json(['error' =>$e->getMessage(),'code'=>405], 405);
         });
 
         $this->renderable(function (AuthenticationException $e) {
-            return response()->json(['message' => 'unauthenticated','code'=>401], 401);
+            return response()->json(['error' => 'unauthenticated','code'=>401], 401);
         });
 
-        $this->renderable(function (RouteNotFoundException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>404], 404);
+        $this->reportable(function (RouteNotFoundException $e) {
+            return response()->json(['error' =>$e->getMessage(),'code'=>404], 404);
         });
+    }
+
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        $errors = $e->validator->errors()->getMessages();
+        return response()->json(['error'=>$errors],422);
     }
 }

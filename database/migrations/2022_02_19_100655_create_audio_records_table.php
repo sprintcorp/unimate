@@ -17,6 +17,7 @@ class CreateAudioRecordsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('audio_file');
+            $table->string('audio_file_id');
             $table->timestamps();
             $table->softDeletes();
         });

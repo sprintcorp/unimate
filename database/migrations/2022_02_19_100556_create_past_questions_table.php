@@ -17,6 +17,7 @@ class CreatePastQuestionsTable extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained();
             $table->string('file');
+            $table->string('file_id');
             $table->string('thumbnail')->nullable();
             $table->string('type')->default('text');
             $table->integer('year');
