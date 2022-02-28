@@ -25,7 +25,7 @@ class ReminderRequest extends FormRequest
     {
         return [
             'subject' =>  'required|string',
-            'message' => 'required|string',
+            'message' => 'nullable|string',
             'reminder_time' => 'required|date|after:' . date('Y-m-d'),
         ];
     }
