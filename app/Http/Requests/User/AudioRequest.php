@@ -13,7 +13,7 @@ class AudioRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class AudioRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'audio_file' => 'required|max:100000|mimes:mp3',
         ];
     }
 }

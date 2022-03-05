@@ -16,17 +16,12 @@ class Course extends Model
         return $this->belongsTo(Department::class,'department_id');
     }
 
-    public function course_material()
-    {
-        return $this->hasMany(CourseMaterial::class);
-    }
-
-    public function course_outline()
+    public function courseOutline()
     {
         return $this->hasMany(CourseOutline::class);
     }
 
-    public function past_question()
+    public function pastQuestion()
     {
         return $this->hasMany(PastQuestion::class);
     }

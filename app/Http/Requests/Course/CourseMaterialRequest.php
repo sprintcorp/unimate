@@ -13,7 +13,7 @@ class CourseMaterialRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class CourseMaterialRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'course_outline_id' => 'exists:course_outlines,id',
+            'file' => 'string|required',
         ];
     }
 }

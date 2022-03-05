@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\Institution\DepartmentRequest;
+use App\Interfaces\Departments;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    protected $department;
+    public function __construct(Departments $department)
+    {
+        $this->department = $department;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +21,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return $this->department->getDepartments();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +31,9 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+        return $this->department->createDepartment($request->all());
     }
 
     /**
@@ -44,20 +42,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Department $department)
-    {
-        //
+        return $this->department->getDepartment($id);
     }
 
     /**
@@ -67,9 +54,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $request, $id)
     {
-        //
+        return $this->department->updateDepartment($request->all(),$id);
     }
 
     /**
@@ -78,8 +65,8 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy($id)
     {
-        //
+        return $this->department->deleteDepartment($id);
     }
 }

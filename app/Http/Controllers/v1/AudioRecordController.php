@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\User\AudioRequest;
+use App\Interfaces\Audio;
 use App\Models\AudioRecord;
 use Illuminate\Http\Request;
 
 class AudioRecordController extends Controller
 {
+    protected $audio;
+    public function __construct(Audio $audio)
+    {
+        $this->audio = $audio;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +21,7 @@ class AudioRecordController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->audio->getAudios();
     }
 
     /**
@@ -33,9 +30,9 @@ class AudioRecordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AudioRequest $request)
     {
-        //
+        return $this->audio->createAudio($request->all());
     }
 
     /**
@@ -44,20 +41,9 @@ class AudioRecordController extends Controller
      * @param  \App\Models\AudioRecord  $audioRecord
      * @return \Illuminate\Http\Response
      */
-    public function show(AudioRecord $audioRecord)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\AudioRecord  $audioRecord
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AudioRecord $audioRecord)
-    {
-        //
+        return $this->audio->getAudio($id);
     }
 
     /**
@@ -67,9 +53,9 @@ class AudioRecordController extends Controller
      * @param  \App\Models\AudioRecord  $audioRecord
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AudioRecord $audioRecord)
+    public function updateAudio(AudioRequest $request, $id)
     {
-        //
+        return $this->audio->updateAudio($request->all(),$id);
     }
 
     /**
@@ -78,8 +64,8 @@ class AudioRecordController extends Controller
      * @param  \App\Models\AudioRecord  $audioRecord
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AudioRecord $audioRecord)
+    public function destroy($id)
     {
-        //
+        return $this->audio->deleteAudio($id);
     }
 }

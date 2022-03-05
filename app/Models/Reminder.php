@@ -11,6 +11,13 @@ class Reminder extends Model
     use HasFactory,SoftDeletes;
     protected $guarded = [];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->user_id = auth()->user()->id;
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');

@@ -11,8 +11,8 @@ class CourseMaterial extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
-    public function course()
+    public function courseOutline()
     {
-        return $this->belongsTo(Course::class,'course_id');
+        return $this->belongsTo(CourseOutline::class,'course_outline_id');
     }
 }

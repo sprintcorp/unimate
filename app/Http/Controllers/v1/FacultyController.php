@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Models\Faculty;
+use App\Http\Requests\Institution\FacultyRequest;
+use App\Interfaces\Faculties;
 use Illuminate\Http\Request;
 
 class FacultyController extends Controller
 {
+    protected $faculty;
+    public function __construct(Faculties $faculty)
+    {
+        $this->faculty = $faculty;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +20,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->faculty->getFaculties();
     }
 
     /**
@@ -33,9 +29,9 @@ class FacultyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FacultyRequest $request)
     {
-        //
+        return $this->faculty->createFaculty($request->all());
     }
 
     /**
@@ -44,20 +40,9 @@ class FacultyController extends Controller
      * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function show(Faculty $faculty)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Faculty  $faculty
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Faculty $faculty)
-    {
-        //
+        return $this->faculty->getFaculty($id);
     }
 
     /**
@@ -67,9 +52,9 @@ class FacultyController extends Controller
      * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Faculty $faculty)
+    public function update(FacultyRequest $request, $id)
     {
-        //
+        return $this->faculty->updateFaculty($request->all(),$id);
     }
 
     /**
@@ -78,8 +63,8 @@ class FacultyController extends Controller
      * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Faculty $faculty)
+    public function destroy($id)
     {
-        //
+        return $this->faculty->deleteFaculty($id);
     }
 }

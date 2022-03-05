@@ -5,11 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Faculty extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->slug = Str::slug(request()->name).'-'.request()->university_id;
+        });
+    }
 
     public function university()
     {

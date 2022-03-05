@@ -13,7 +13,7 @@ class CourseOutlineRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class CourseOutlineRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'course_id' => 'exists:courses,id',
+            'headings' => 'string|required',
+            'subheadings' => 'nullable|required',
         ];
     }
 }

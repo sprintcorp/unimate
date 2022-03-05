@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\V1\AudioRecordController;
 use App\Http\Controllers\v1\AuthController;
+use App\Http\Controllers\V1\DepartmentController;
+use App\Http\Controllers\V1\FacultyController;
 use App\Http\Controllers\V1\NoteTakerController;
 use App\Http\Controllers\V1\ReminderController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\UniversityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,15 +30,21 @@ use Illuminate\Support\Facades\Route;
         Route::put('/user-password', [AuthController::class, 'passwordReset'])->name('password-reset');
     });
 
+//  User route
     Route::group(['prefix' => 'user','middleware'=>'auth:api'], function(){
         Route::post('/update-profile', [AuthController::class, 'updateProfile'])->name('update-profile');
         Route::get('/user-profile', [AuthController::class, 'userProfile']);
 
         Route::resource('notes',NoteTakerController::class);
         Route::resource('reminder',ReminderController::class);
+        Route::resource('audio',AudioRecordController::class);
+        Route::post('/audio/{id}', [AudioRecordController::class, 'updateAudio'])->name('updateAudio');
     });
 
-    Route::group(['prefix' => '','middleware'=>'auth:api'], function(){
-
+// Institution route
+    Route::group(['middleware'=>'auth:api'], function(){
+        Route::resource('university',UniversityController::class);
+        Route::resource('faculty',FacultyController::class);
+        Route::resource('department',DepartmentController::class);
     });
 

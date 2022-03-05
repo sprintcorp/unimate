@@ -13,7 +13,7 @@ class DepartmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,15 @@ class DepartmentRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->isMethod('PUT')){
+            return [
+                'name' => 'required|string|max:100',
+                'faculty_id' => 'integer|nullable|exists:faculties,id',
+            ];
+        }
         return [
-            //
+            'name' => 'required|string|max:100',
+            'faculty_id' => 'integer|nullable|exists:faculties,id',
         ];
     }
 }

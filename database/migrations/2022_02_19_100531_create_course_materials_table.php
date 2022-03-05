@@ -15,7 +15,7 @@ class CreateCourseMaterialsTable extends Migration
     {
         Schema::create('course_materials', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained();
+            $table->foreignId('course_outline_id')->constrained();
             $table->string('file');
             $table->string('file_id');
             $table->string('thumbnail')->nullable();

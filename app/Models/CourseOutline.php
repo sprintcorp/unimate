@@ -15,4 +15,9 @@ class CourseOutline extends Model
     {
         return $this->belongsTo(Course::class,'course_id');
     }
+
+    public function courseMaterial()
+    {
+        return $this->hasMany(CourseMaterial::class);
+    }
 }

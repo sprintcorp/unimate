@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
-use App\Models\University;
-use Illuminate\Http\Request;
+use App\Http\Requests\Institution\UniversityRequest;
+use App\Interfaces\Universities;
 
 class UniversityController extends Controller
 {
+    protected $university;
+    public function __construct(Universities $university)
+    {
+        $this->university = $university;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +19,9 @@ class UniversityController extends Controller
      */
     public function index()
     {
-        //
+        return $this->university->getUniversities();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +29,9 @@ class UniversityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UniversityRequest $request)
     {
-        //
+        return $this->university->createUniversity($request->all());
     }
 
     /**
@@ -44,21 +40,11 @@ class UniversityController extends Controller
      * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function show(University $university)
+    public function show($id)
     {
-        //
+        return $this->university->getUniversity($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\University  $university
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(University $university)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +53,9 @@ class UniversityController extends Controller
      * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, University $university)
+    public function update(UniversityRequest $request, $id)
     {
-        //
+        return $this->university->updateUniversity($request->all(),$id);
     }
 
     /**
@@ -78,8 +64,8 @@ class UniversityController extends Controller
      * @param  \App\Models\University  $university
      * @return \Illuminate\Http\Response
      */
-    public function destroy(University $university)
+    public function destroy($id)
     {
-        //
+        return $this->university->deleteUniversity($id);
     }
 }

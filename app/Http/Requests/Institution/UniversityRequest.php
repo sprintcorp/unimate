@@ -13,7 +13,7 @@ class UniversityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,15 @@ class UniversityRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->isMethod('PUT')){
+            return [
+                'name' => 'required|string|max:100|unique:universities,name,'.request()->id,
+                'acronym' => 'nullable|string|max:20',
+            ];
+        }
         return [
-            //
+            'name' => 'required|string|max:100|unique:universities',
+            'acronym' => 'nullable|string|max:20',
         ];
     }
 }

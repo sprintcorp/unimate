@@ -4,8 +4,6 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Requests\User\NoteTakeRequest;
 use App\Interfaces\Note;
-use App\Models\NoteTaker;
-use Illuminate\Http\Request;
 
 class NoteTakerController extends Controller
 {
