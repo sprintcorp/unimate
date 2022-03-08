@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Audio;
 use App\Interfaces\Auth;
-use App\Interfaces\Course;
+use App\Interfaces\CourseInterface;
 use App\Interfaces\CourseMaterialsInterface;
 use App\Interfaces\CourseOutlinesInterface;
 use App\Interfaces\Departments;
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Faculties::class,FacultyRepository::class);
         $this->app->bind(Departments::class,DepartmentRepository::class);
         $this->app->bind(Audio::class,AudioRepository::class);
-        $this->app->bind(Course::class,CourseRepository::class);
+        $this->app->bind(CourseInterface::class,CourseRepository::class);
         $this->app->bind(CourseOutlinesInterface::class,CourseOutlineRepository::class);
         $this->app->bind(CourseMaterialsInterface::class,CourseMaterialRepository::class);
     }

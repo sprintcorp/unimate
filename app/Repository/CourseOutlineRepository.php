@@ -4,29 +4,36 @@
 namespace App\Repository;
 
 
+use App\Http\Resources\Course\CourseOutlineResources;
 use App\Interfaces\CourseOutlinesInterface;
+use App\Models\CourseOutline;
+use App\Traits\ApiResponser;
 
 class CourseOutlineRepository implements CourseOutlinesInterface
 {
-
+    use ApiResponser;
     public function createCourseOutline($data)
     {
-        // TODO: Implement createCourseOutline() method.
+        $course_outline = CourseOutline::create($data);
+        return $this->showOne($course_outline,201);
     }
 
     public function updateCourseOutline($data, $id)
     {
-        // TODO: Implement updateCourseOutline() method.
+        $course_outline = CourseOutline::findorFail($id);
+        $course_outline->update($data);
+        return $this->showOne('course outline updated successfully',200);
     }
 
     public function getCoursesOutline()
     {
-        // TODO: Implement getCoursesOutline() method.
+        $course_outline = CourseOutline::where('course_id',request()->get('course_id'))->get();
+        return $this->showAll(CourseOutlineResources::collection($course_outline));
     }
 
     public function getCourseOutline($id)
     {
-        // TODO: Implement getCourseOutline() method.
+        return $this->showOne(new CourseOutlineResources(CourseOutline::findorFail($id)));
     }
 
     public function uploadCourseOutline($id)
@@ -36,6 +43,8 @@ class CourseOutlineRepository implements CourseOutlinesInterface
 
     public function deleteCourseOutline($id)
     {
-        // TODO: Implement deleteCourseOutline() method.
+        $course_outline = CourseOutline::findorFail($id);
+        $course_outline->delete();
+        return $this->showMessage('course outline deleted successfully');
     }
 }

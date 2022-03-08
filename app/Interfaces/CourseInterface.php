@@ -4,7 +4,7 @@
 namespace App\Interfaces;
 
 
-interface Course
+interface CourseInterface
 {
     public function createCourse($data);
     public function updateCourse($data, $id);

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\Course\CourseRequest;
+use App\Interfaces\CourseInterface;
 use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    protected $course;
+    public function __construct(CourseInterface $course)
+    {
+        $this->course = $course;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +21,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->course->getCourses();
     }
 
     /**
@@ -33,9 +30,9 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
+        return $this->course->createCourse($request->all());
     }
 
     /**
@@ -44,20 +41,9 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Course  $course
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Course $course)
-    {
-        //
+        return $this->course->getCourse($id);
     }
 
     /**
@@ -67,9 +53,9 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(CourseRequest $request, $id)
     {
-        //
+        return $this->course->updateCourse($request->all(),$id);
     }
 
     /**
@@ -78,8 +64,8 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy($id)
     {
-        //
+        return $this->course->deleteCourse($id);
     }
 }

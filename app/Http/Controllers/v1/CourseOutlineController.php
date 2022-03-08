@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\Course\CourseOutlineRequest;
+use App\Interfaces\CourseOutlinesInterface;
 use App\Models\CourseOutline;
 use Illuminate\Http\Request;
 
 class CourseOutlineController extends Controller
 {
+    protected $course_outline;
+    public function __construct(CourseOutlinesInterface $course_outline)
+    {
+        $this->course_outline = $course_outline;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +21,9 @@ class CourseOutlineController extends Controller
      */
     public function index()
     {
-        //
+        return $this->course_outline->getCoursesOutline();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +31,9 @@ class CourseOutlineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseOutlineRequest $request)
     {
-        //
+        return $this->course_outline->createCourseOutline($request->all());
     }
 
     /**
@@ -44,20 +42,9 @@ class CourseOutlineController extends Controller
      * @param  \App\Models\CourseOutline  $courseOutline
      * @return \Illuminate\Http\Response
      */
-    public function show(CourseOutline $courseOutline)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CourseOutline  $courseOutline
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CourseOutline $courseOutline)
-    {
-        //
+        return $this->course_outline->getCourseOutline($id);
     }
 
     /**
@@ -67,9 +54,9 @@ class CourseOutlineController extends Controller
      * @param  \App\Models\CourseOutline  $courseOutline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseOutline $courseOutline)
+    public function update(CourseOutlineRequest $request, $id)
     {
-        //
+        return $this->course_outline->updateCourseOutline($request->all(),$id);
     }
 
     /**
@@ -78,8 +65,8 @@ class CourseOutlineController extends Controller
      * @param  \App\Models\CourseOutline  $courseOutline
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseOutline $courseOutline)
+    public function destroy($id)
     {
-        //
+        return $this->course_outline->deleteCourseOutline($id);
     }
 }

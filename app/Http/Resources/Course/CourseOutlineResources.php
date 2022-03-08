@@ -14,6 +14,12 @@ class CourseOutlineResources extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->course->id,
+            'course' => $this->course->course_title,
+            'heading' => $this->headings,
+            'subheadings' => $this->subheadings,
+            'materials'=> CourseMaterialResources::collection($this->courseMaterial),
+        ];
     }
 }

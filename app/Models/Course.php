@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
-    public function course()
+    public function department()
     {
         return $this->belongsTo(Department::class,'department_id');
     }
