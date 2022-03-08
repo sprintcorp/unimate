@@ -52,5 +52,6 @@ use Illuminate\Support\Facades\Route;
         Route::resource('institution-course',CourseController::class);
         Route::resource('course-outline',CourseOutlineController::class);
         Route::resource('course-material',CourseMaterialController::class);
+        Route::post('/course-material/{id}', [CourseMaterialController::class, 'updateMaterial'])->name('updateMaterial');
     });
 

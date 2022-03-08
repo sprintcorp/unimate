@@ -46,14 +46,7 @@ class CourseMaterialController extends Controller
         return $this->course_material->getCourseMaterial($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CourseMaterial  $courseMaterial
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CourseMaterialRequest $request, $id)
+    public function updateMaterial(CourseMaterialRequest $request, $id)
     {
         return $this->course_material->updateCourseMaterial($request->all(),$id);
     }
