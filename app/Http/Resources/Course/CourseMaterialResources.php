@@ -14,6 +14,14 @@ class CourseMaterialResources extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'=> $this->id,
+            'course_heading'=> $this->courseOutline->headings,
+            'material_file'=> $this->file,
+            'filename'=> $this->file_name,
+            'extension'=> $this->extension,
+            'filesize'=> $this->size,
+            'upload_date' => $this->created_at
+        ];
     }
 }

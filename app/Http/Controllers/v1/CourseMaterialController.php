@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\Course\CourseMaterialRequest;
+use App\Interfaces\CourseMaterialsInterface;
 use App\Models\CourseMaterial;
 use Illuminate\Http\Request;
 
 class CourseMaterialController extends Controller
 {
+    protected $course_material;
+    public function __construct(CourseMaterialsInterface $course_material)
+    {
+        $this->course_material = $course_material;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +21,7 @@ class CourseMaterialController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->course_material->getCoursesMaterial();
     }
 
     /**
@@ -33,9 +30,9 @@ class CourseMaterialController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseMaterialRequest $request)
     {
-        //
+        return $this->course_material->createCourseMaterial($request->all());
     }
 
     /**
@@ -44,20 +41,9 @@ class CourseMaterialController extends Controller
      * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Http\Response
      */
-    public function show(CourseMaterial $courseMaterial)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CourseMaterial  $courseMaterial
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CourseMaterial $courseMaterial)
-    {
-        //
+        return $this->course_material->getCourseMaterial($id);
     }
 
     /**
@@ -67,9 +53,9 @@ class CourseMaterialController extends Controller
      * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseMaterial $courseMaterial)
+    public function update(CourseMaterialRequest $request, $id)
     {
-        //
+        return $this->course_material->updateCourseMaterial($request->all(),$id);
     }
 
     /**
@@ -78,8 +64,8 @@ class CourseMaterialController extends Controller
      * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseMaterial $courseMaterial)
+    public function destroy($id)
     {
-        //
+        return $this->course_material->deleteCourseMaterial($id);
     }
 }

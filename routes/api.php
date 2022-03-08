@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\AudioRecordController;
 use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\V1\CourseController;
+use App\Http\Controllers\V1\CourseMaterialController;
 use App\Http\Controllers\V1\CourseOutlineController;
 use App\Http\Controllers\V1\DepartmentController;
 use App\Http\Controllers\V1\FacultyController;
@@ -50,5 +51,6 @@ use Illuminate\Support\Facades\Route;
         Route::resource('department',DepartmentController::class);
         Route::resource('institution-course',CourseController::class);
         Route::resource('course-outline',CourseOutlineController::class);
+        Route::resource('course-material',CourseMaterialController::class);
     });
 

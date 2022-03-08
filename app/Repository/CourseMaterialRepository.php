@@ -4,33 +4,54 @@
 namespace App\Repository;
 
 
+use App\Http\Resources\Course\CourseMaterialResources;
 use App\Interfaces\CourseMaterialsInterface;
+use App\Models\CourseMaterial;
+use App\Traits\ApiResponser;
+use App\Traits\FileManager;
 
 class CourseMaterialRepository implements CourseMaterialsInterface
 {
-
+    use ApiResponser,FileManager;
     public function createCourseMaterial($data)
     {
-        // TODO: Implement createCourseMaterial() method.
+        $res = $this->fileUpload($data['file']->getRealPath());
+        $data['file'] = $res->getSecurePath();
+        $data['file_id'] = $res->getPublicId();
+        $data['extension'] = $res->getExtension();
+        $data['size'] = $res->getReadableSize();
+        $data['file_name'] = $res->getOriginalFileName();
+        $course_material = CourseMaterial::create($data);
+        return $this->showOne($course_material,201);
     }
 
     public function updateCourseMaterial($data, $id)
     {
-        // TODO: Implement updateCourseMaterial() method.
+        $res = $this->fileUpload($data['file']->getRealPath());
+        $data['file'] = $res->getSecurePath();
+        $data['file_id'] = $res->getPublicId();
+        $data['extension'] = $res->getExtension();
+        $data['size'] = $res->getReadableSize();
+        $data['file_name'] = $res->getOriginalFileName();
+        $course_material = CourseMaterial::findorFail($id);
+        $course_material->update($data);
+        return $this->showOne('course updated successfully',200);
     }
 
     public function getCoursesMaterial()
     {
-        // TODO: Implement getCoursesMaterial() method.
+        return $this->showAll(CourseMaterialResources::collection(CourseMaterial::all()));
     }
 
     public function getCourseMaterial($id)
     {
-        // TODO: Implement getCourseMaterial() method.
+        return $this->showOne(new CourseMaterialResources(CourseMaterial::findorFail($id)));
     }
 
     public function deleteCourseMaterial($id)
     {
-        // TODO: Implement deleteCourseMaterial() method.
+        $course_material = CourseMaterial::findorFail($id);
+        $course_material->delete();
+        return $this->showMessage('course material deleted successfully');
     }
 }
