@@ -25,6 +25,7 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         if (Route::current()->getName() == 'update-profile') {
+
             return [
                 'email' => 'nullable|string|email|max:100|unique:users,email,'.auth()->user()->id,
                 'university_id' => 'integer|nullable|exists:universities,id',
@@ -41,20 +42,22 @@ class RegistrationRequest extends FormRequest
                 'level' => 'string|nullable',
             ];
         }
-        return [
-            'email' => 'required|string|email|max:100|unique:users',
-            'university_id' => 'integer|nullable|exists:universities,id',
-            'role_id' => 'integer|nullable|exists:roles,id',
-            'faculty_id' => 'integer|nullable|exists:faculties,id',
-            'department_id' => 'integer|nullable|exists:departments,id',
-            'password' => 'required|string|min:8',
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'phone' => 'string|nullable',
-            'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
-            'other_name' => 'string|nullable',
-            'cgpa' => 'string|nullable',
-            'level' => 'string|nullable',
-        ];
+        if (Route::current()->getName() == 'register') {
+            return [
+                'email' => 'required|string|email|max:100|unique:users',
+                'university_id' => 'integer|nullable|exists:universities,id',
+                'role_id' => 'integer|nullable|exists:roles,id',
+                'faculty_id' => 'integer|nullable|exists:faculties,id',
+                'department_id' => 'integer|nullable|exists:departments,id',
+                'password' => 'required|string|min:8',
+                'firstname' => 'required|string',
+                'lastname' => 'required|string',
+                'phone' => 'string|nullable',
+                'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
+                'other_name' => 'string|nullable',
+                'cgpa' => 'string|nullable',
+                'level' => 'string|nullable',
+            ];
+        }
     }
 }

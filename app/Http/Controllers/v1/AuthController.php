@@ -7,6 +7,7 @@ use App\Http\Requests\User\RegistrationRequest;
 use App\Interfaces\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class AuthController extends Controller
 {

@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 //    Unauthorized route
     Route::group(['prefix' => 'auth'], function(){
-        Route::post('register', [AuthController::class, 'register']);
+        Route::post('register', [AuthController::class, 'register'])->name('register');
         Route::post('login', [AuthController::class, 'login']);
         Route::post('/otp', [AuthController::class, 'otp']);
         Route::put('/reset', [AuthController::class, 'reset'])->name('reset');
