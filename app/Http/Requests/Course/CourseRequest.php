@@ -24,7 +24,7 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'department_id' => 'exists:departments,id',
+            'department_id' => 'required|exists:departments,id',
             'course_title' => 'string|required',
             'course_code' => 'string|required',
             'level' => 'integer|required',
