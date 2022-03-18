@@ -8,7 +8,9 @@ use App\Http\Controllers\V1\CourseOutlineController;
 use App\Http\Controllers\V1\DepartmentController;
 use App\Http\Controllers\V1\FacultyController;
 use App\Http\Controllers\V1\NoteTakerController;
+use App\Http\Controllers\V1\PastQuestionController;
 use App\Http\Controllers\V1\ReminderController;
+use App\Http\Controllers\v1\RoleController;
 use App\Http\Controllers\V1\UniversityController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('roles',RoleController::class);
 
 //    Unauthorized route
     Route::group(['prefix' => 'auth'], function(){
@@ -53,5 +56,7 @@ use Illuminate\Support\Facades\Route;
         Route::resource('course-outline',CourseOutlineController::class);
         Route::resource('course-material',CourseMaterialController::class);
         Route::post('/course-material/{id}', [CourseMaterialController::class, 'updateMaterial'])->name('updateMaterial');
+        Route::resource('past-question',PastQuestionController::class);
+        Route::post('/past-question/{id}', [PastQuestionController::class, 'updatePastQuestion'])->name('updatePastQuestion');
     });
 

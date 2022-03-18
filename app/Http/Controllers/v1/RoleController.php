@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Interfaces\Roles;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    protected $role;
+    public function __construct(Roles $role)
+    {
+        $this->role = $role;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +20,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->role->getRoles();
     }
 
     /**
@@ -45,17 +41,6 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
     {
         //
     }

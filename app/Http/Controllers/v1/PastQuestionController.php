@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
-use App\Models\PastQuestion;
-use Illuminate\Http\Request;
+use App\Http\Requests\Course\PastQuestionRequest;
+use App\Interfaces\PastQuestionInterface;
 
 class PastQuestionController extends Controller
 {
+    protected $past_question;
+    public function __construct(PastQuestionInterface $past_question)
+    {
+        $this->past_question = $past_question;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +19,7 @@ class PastQuestionController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->past_question->getPastQuestions();
     }
 
     /**
@@ -33,9 +28,9 @@ class PastQuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PastQuestionRequest $request)
     {
-        //
+        return $this->past_question->createPastQuestion($request->all());
     }
 
     /**
@@ -44,20 +39,9 @@ class PastQuestionController extends Controller
      * @param  \App\Models\PastQuestion  $pastQuestion
      * @return \Illuminate\Http\Response
      */
-    public function show(PastQuestion $pastQuestion)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PastQuestion  $pastQuestion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PastQuestion $pastQuestion)
-    {
-        //
+        return $this->past_question->getPastQuestion($id);
     }
 
     /**
@@ -67,9 +51,9 @@ class PastQuestionController extends Controller
      * @param  \App\Models\PastQuestion  $pastQuestion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PastQuestion $pastQuestion)
+    public function updatePastQuestion(PastQuestionRequest $request, $id)
     {
-        //
+        return $this->past_question->updatePastQuestion($request->all(),$id);
     }
 
     /**
@@ -78,8 +62,8 @@ class PastQuestionController extends Controller
      * @param  \App\Models\PastQuestion  $pastQuestion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PastQuestion $pastQuestion)
+    public function destroy($id)
     {
-        //
+        return $this->past_question->deletePastQuestion($id);
     }
 }
