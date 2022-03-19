@@ -160,6 +160,7 @@ class AuthRepository implements Auth
         $user = User::where('email_token',$token)->first();
         if($user){
             $user->email_verified_at = now();
+            $user->email_token = NULL;
             $user->save();
             return redirect('verify-success');
         }
