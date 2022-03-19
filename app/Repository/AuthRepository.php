@@ -22,7 +22,7 @@ class AuthRepository implements Auth
 
     public function register($data)
     {
-//        dd($data);
+
         $token_reg = Hash::make($data['email'].now());
         try {
             DB::beginTransaction();
