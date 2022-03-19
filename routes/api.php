@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('login', [AuthController::class, 'login']);
         Route::post('/otp', [AuthController::class, 'otp']);
         Route::put('/reset', [AuthController::class, 'reset'])->name('reset');
-        Route::put('/verify', [AuthController::class, 'verify'])->name('verify');
+        Route::get('/verify', [AuthController::class, 'verify'])->name('verify');
         Route::put('/user-password', [AuthController::class, 'passwordReset'])->name('password-reset');
     });
 
