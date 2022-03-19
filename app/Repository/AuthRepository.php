@@ -157,7 +157,7 @@ class AuthRepository implements Auth
         if($user){
             $user->email_verified_at = now();
             $user->save();
-            return view('verify_success');
+            return redirect('verify-success');
         }
         return $this->errorResponse('Invalid token',400);
     }
