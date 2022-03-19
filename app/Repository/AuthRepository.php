@@ -22,6 +22,7 @@ class AuthRepository implements Auth
 
     public function register($data)
     {
+//        dd($data);
         $token_reg = Hash::make($data['email'].now());
         try {
             DB::beginTransaction();
@@ -33,6 +34,8 @@ class AuthRepository implements Auth
             ]);
             $role = $data['role_id'];
             $data['user_id'] = $user->id;
+            $userData = $data;
+            $userData['email_token'] = $token_reg;
             unset($data['email']);
             unset($data['password']);
             unset($data['role_id']);
@@ -46,8 +49,9 @@ class AuthRepository implements Auth
             }else{
                 Student::create($data);
             }
+            Mail::to($userData['email'])->send(new EmailVerificationMail($userData));
             DB::commit();
-            Mail::to($data['email'])->send(new EmailVerificationMail($data));
+
             return $this->showOne($user,201);
 
         } catch(\Exception $exp) {
