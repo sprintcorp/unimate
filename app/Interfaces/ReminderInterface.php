@@ -4,7 +4,7 @@
 namespace App\Interfaces;
 
 
-interface Reminder
+interface ReminderInterface
 {
     public function createReminder($data);
     public function updateReminder($data, $id);

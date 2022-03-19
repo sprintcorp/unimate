@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Requests\User\ReminderRequest;
-use App\Models\Reminder;
+use App\Interfaces\ReminderInterface;
 use Illuminate\Http\Request;
 
 class ReminderController extends Controller
 {
-    protected $reminder;
-    public function __construct(\App\Interfaces\Reminder $reminder)
-    {
-        $this->reminder = $reminder;
-    }
+    public function __construct(protected ReminderInterface $reminder){}
     /**
      * Display a listing of the resource.
      *

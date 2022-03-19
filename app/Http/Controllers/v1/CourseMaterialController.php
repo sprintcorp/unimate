@@ -9,11 +9,8 @@ use Illuminate\Http\Request;
 
 class CourseMaterialController extends Controller
 {
-    protected $course_material;
-    public function __construct(CourseMaterialsInterface $course_material)
-    {
-        $this->course_material = $course_material;
-    }
+    public function __construct(protected CourseMaterialsInterface $course_material){}
+
     /**
      * Display a listing of the resource.
      *

@@ -7,11 +7,7 @@ use App\Interfaces\Universities;
 
 class UniversityController extends Controller
 {
-    protected $university;
-    public function __construct(Universities $university)
-    {
-        $this->university = $university;
-    }
+    public function __construct(protected Universities $university){}
     /**
      * Display a listing of the resource.
      *

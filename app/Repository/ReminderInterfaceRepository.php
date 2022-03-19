@@ -5,10 +5,10 @@ namespace App\Repository;
 
 
 use App\Http\Resources\User\ReminderResources;
-use App\Interfaces\Reminder;
+use App\Interfaces\ReminderInterface;
 use App\Traits\ApiResponser;
 
-class ReminderRepository implements Reminder
+class ReminderInterfaceRepository implements ReminderInterface
 {
 
     use ApiResponser;

@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    protected $department;
-    public function __construct(Departments $department)
-    {
-        $this->department = $department;
-    }
+    public function __construct(protected Departments $department){}
     /**
      * Display a listing of the resource.
      *

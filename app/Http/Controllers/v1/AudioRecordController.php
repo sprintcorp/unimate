@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class AudioRecordController extends Controller
 {
-    protected $audio;
-    public function __construct(Audio $audio)
-    {
-        $this->audio = $audio;
-    }
+    public function __construct(protected Audio $audio){}
     /**
      * Display a listing of the resource.
      *

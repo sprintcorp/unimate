@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 class AuthController extends Controller
 {
-    protected $auth;
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
+    public function __construct(protected Auth $auth){}
+
     public function register(RegistrationRequest $request)
     {
         return $this->auth->register($request->all());
@@ -51,5 +48,8 @@ class AuthController extends Controller
         return $this->auth->userProfile();
     }
 
-
+    public function verify()
+    {
+        return $this->auth->verify();
+    }
 }

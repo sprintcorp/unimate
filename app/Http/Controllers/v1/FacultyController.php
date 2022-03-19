@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class FacultyController extends Controller
 {
-    protected $faculty;
-    public function __construct(Faculties $faculty)
-    {
-        $this->faculty = $faculty;
-    }
+    public function __construct(protected Faculties $faculty){}
     /**
      * Display a listing of the resource.
      *

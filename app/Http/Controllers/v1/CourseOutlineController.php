@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class CourseOutlineController extends Controller
 {
-    protected $course_outline;
-    public function __construct(CourseOutlinesInterface $course_outline)
-    {
-        $this->course_outline = $course_outline;
-    }
+    public function __construct(protected CourseOutlinesInterface $course_outline){}
     /**
      * Display a listing of the resource.
      *

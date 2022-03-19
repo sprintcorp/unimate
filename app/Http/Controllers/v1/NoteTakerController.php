@@ -7,11 +7,8 @@ use App\Interfaces\Note;
 
 class NoteTakerController extends Controller
 {
-    protected $note;
-    public function __construct(Note $note)
-    {
-        $this->note = $note;
-    }
+    public function __construct(protected Note $note){}
+
     /**
      * Display a listing of the resource.
      *

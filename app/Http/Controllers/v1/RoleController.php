@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    protected $role;
-    public function __construct(Roles $role)
-    {
-        $this->role = $role;
-    }
+    public function __construct(protected Roles $role){}
     /**
      * Display a listing of the resource.
      *

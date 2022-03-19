@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Http\Resources\User\AuthResources;
 use App\Interfaces\Auth;
+use App\Mail\EmailVerificationMail;
 use App\Mail\PasswordResetMail;
 use App\Models\Admin;
 use App\Models\Student;
@@ -21,12 +22,14 @@ class AuthRepository implements Auth
 
     public function register($data)
     {
+        $token_reg = Hash::make($data['email']->email.now());
         try {
             DB::beginTransaction();
             $user = User::create([
                 'email'=> $data['email'],
                 'role_id'=> $data['role_id'],
                 'password' => Hash::make($data['password']),
+                'email_token' => $token_reg
             ]);
             $role = $data['role_id'];
             $data['user_id'] = $user->id;
@@ -44,6 +47,7 @@ class AuthRepository implements Auth
                 Student::create($data);
             }
             DB::commit();
+            Mail::to($data['email'])->send(new EmailVerificationMail($data));
             return $this->showOne($user,201);
 
         } catch(\Exception $exp) {
@@ -57,7 +61,17 @@ class AuthRepository implements Auth
         if (!$token = auth()->attempt($data)) {
             return $this->errorResponse('invalid login credentials', 404);
         }
-        return $this->createNewToken($token);
+
+        if(auth()->user()->email_verified_at){
+            return $this->createNewToken($token);
+        }
+
+        $token = Hash::make($data['email'].now());
+        $data['email_token'] = $token;
+        auth()->user()->email_token = $token;
+        auth()->user()->save();
+        Mail::to($data['email'])->send(new EmailVerificationMail($data));
+        return $this->errorResponse('Email not verified yet, pls check your mail for email verification mail',400);
     }
 
     public function otp($data)
@@ -134,5 +148,17 @@ class AuthRepository implements Auth
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => new AuthResources(auth()->user()),
         ]);
+    }
+
+    public function verify()
+    {
+        $token = request()->get('token');
+        $user = User::where('email_token',$token)->first();
+        if($user){
+            $user->email_verified_at = now();
+            $user->save();
+            return $this->successResponse('Email verification successful',200);
+        }
+        return $this->errorResponse('Invalid token',400);
     }
 }

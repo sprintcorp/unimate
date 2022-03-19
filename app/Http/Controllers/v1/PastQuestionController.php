@@ -7,11 +7,7 @@ use App\Interfaces\PastQuestionInterface;
 
 class PastQuestionController extends Controller
 {
-    protected $past_question;
-    public function __construct(PastQuestionInterface $past_question)
-    {
-        $this->past_question = $past_question;
-    }
+    public function __construct(protected PastQuestionInterface $past_question){}
     /**
      * Display a listing of the resource.
      *
