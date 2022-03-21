@@ -34,6 +34,7 @@ class AuthRepository implements Auth
             ]);
             $role = $data['role_id'];
             $data['user_id'] = $user->id;
+            $data['role_id'] = 2;
             $userData = $data;
             $userData['email_token'] = $token_reg;
             unset($data['email']);
