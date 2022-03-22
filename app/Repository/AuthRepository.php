@@ -22,8 +22,10 @@ class AuthRepository implements Auth
 
     public function register($data)
     {
-
         $token_reg = Hash::make($data['email'].now());
+        if(!array_key_exists('role_id',$data)){
+            $data['role_id'] = 2;
+        }
         try {
             DB::beginTransaction();
             $user = User::create([
@@ -34,7 +36,7 @@ class AuthRepository implements Auth
             ]);
             $role = $data['role_id'];
             $data['user_id'] = $user->id;
-            $data['role_id'] = 2;
+
             $userData = $data;
             $userData['email_token'] = $token_reg;
             unset($data['email']);

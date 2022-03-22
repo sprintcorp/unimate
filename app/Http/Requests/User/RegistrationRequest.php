@@ -29,7 +29,7 @@ class RegistrationRequest extends FormRequest
             return [
                 'email' => 'nullable|string|email|max:100|unique:users,email,'.auth()->user()->id,
                 'university_id' => 'integer|nullable|exists:universities,id',
-                'role_id' => 'integer|nullable|exists:roles,id',
+//                'role_id' => 'integer|nullable|exists:roles,id',
                 'faculty_id' => 'integer|nullable|exists:faculties,id',
                 'department_id' => 'integer|nullable|exists:departments,id',
                 'password' => 'nullable|string|min:8',
@@ -46,7 +46,7 @@ class RegistrationRequest extends FormRequest
             return [
                 'email' => 'required|string|email|max:100|unique:users',
                 'university_id' => 'integer|nullable|exists:universities,id',
-                'role_id' => 'integer|nullable|exists:roles,id',
+//                'role_id' => 'integer|nullable|exists:roles,id',
                 'faculty_id' => 'integer|nullable|exists:faculties,id',
                 'department_id' => 'integer|nullable|exists:departments,id',
                 'password' => 'required|string|min:8',
