@@ -54,8 +54,7 @@ class AuthRepository implements Auth
             }
             Mail::to($userData['email'])->send(new EmailVerificationMail($userData));
             DB::commit();
-
-            return $this->showOne($user,201);
+            return $this->showModelWithMessage($user,'user registered successfully',201);
 
         } catch(\Exception $exp) {
             DB::rollBack();
@@ -89,10 +88,11 @@ class AuthRepository implements Auth
     public function reset($data)
     {
         $user = User::where('email',$data['email'])->first();
-        $token = Hash::make(now().$data['email']);
+//        $token = Hash::make(now().$data['email']);
+        $token = rand(1000,9999);
         $user->update(['remember_token'=> $token]);
         Mail::to($user->email)->send(new PasswordResetMail($user));
-        return $this->showMessage('Password reset link sent');
+        return $this->showMessage('Password reset token has been sent to your mail');
     }
 
     public function passwordReset($data)

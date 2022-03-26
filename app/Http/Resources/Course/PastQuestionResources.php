@@ -18,8 +18,10 @@ class PastQuestionResources extends JsonResource
             'course_title'=>$this->course->course_title,
             'course_code'=>$this->course->course_code,
             'course_id'=>$this->course->id,
-            'question'=>$this->file,
-            'thumbnail'=>$this->thumbnail,
+            'type'=>$this->type,
+            'question'=>$this->type == 'file' ? $this->file : $this->question,
+            'answers'=> $this->type == 'text' ? AnswerResources::collection($this->answers) : NULL,
+            'thumbnail'=>$this->type == 'file' ? $this->thumbnail : NULL,
         ];
     }
 }

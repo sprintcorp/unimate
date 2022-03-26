@@ -6,6 +6,7 @@ use App\Models\Answers;
 use App\Models\Department;
 use App\Models\PastQuestion;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -34,7 +35,8 @@ class DepartmentImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithH
         {
             Department::create([
                 'faculty_id'=> $this->faculty,
-                'name'=>$row['name']
+                'name'=>$row['name'],
+                'slug'=> Str::slug($row['name']) . '-' . $this->faculty,
             ]);
 
         }

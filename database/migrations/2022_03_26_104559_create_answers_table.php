@@ -15,7 +15,7 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('past_questions_id')->constrained();
+            $table->foreignId('past_question_id')->constrained();
             $table->string('option_one')->nullable();
             $table->string('option_two')->nullable();
             $table->string('option_three')->nullable();

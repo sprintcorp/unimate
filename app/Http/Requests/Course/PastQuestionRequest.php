@@ -35,7 +35,9 @@ class PastQuestionRequest extends FormRequest
 
         if (Route::current()->getName() == 'uploadPastQuestion') {
             return [
+                'course_id' => 'required|exists:courses,id',
                 'file' => 'required|max:1000000|mimes:xlsx,csv,xls',
+                'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             ];
         }
 

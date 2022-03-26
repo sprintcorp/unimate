@@ -14,9 +14,11 @@ class University extends Model
 
     protected static function booted()
     {
-        static::creating(function ($model) {
-            $model->slug = Str::slug(request()->name);
-        });
+        if(!request()->has('file')) {
+            static::creating(function ($model) {
+                $model->slug = Str::slug(request()->name);
+            });
+        }
     }
 
     public function faculties()

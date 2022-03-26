@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Answers extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $guarded = [];
+    protected $hidden = ['created_at','updated_at','deleted_at'];
 
     public function question()
     {
-        return $this->belongsTo(PastQuestion::class,'question_id');
+        return $this->belongsTo(PastQuestion::class,'past_question_id');
     }
 }

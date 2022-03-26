@@ -14,9 +14,11 @@ class Faculty extends Model
 
     protected static function booted()
     {
-        static::creating(function ($model) {
-            $model->slug = Str::slug(request()->name).'-'.request()->university_id;
-        });
+        if(!request()->has('file')) {
+            static::creating(function ($model) {
+                $model->slug = Str::slug(request()->name) . '-' . request()->university_id;
+            });
+        }
     }
 
     public function university()

@@ -5,10 +5,12 @@ namespace App\Repository;
 
 
 use App\Http\Resources\Course\PastQuestionResources;
+use App\Imports\PastQuestionImport;
 use App\Interfaces\PastQuestionInterface;
 use App\Models\PastQuestion;
 use App\Traits\ApiResponser;
 use App\Traits\FileManager;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PastQuestionRepository implements PastQuestionInterface
 {
@@ -17,6 +19,7 @@ class PastQuestionRepository implements PastQuestionInterface
     {
         $res = $this->fileUpload($data['file']->getRealPath());
         $data['file'] = $res->getSecurePath();
+        $data['type'] = 'file';
         $data['thumbnail'] = str_replace(".pdf",".jpg",$res->getSecurePath());
         $data['file_id'] = $res->getPublicId();
         return $this->showOne(PastQuestion::create($data));
@@ -26,6 +29,7 @@ class PastQuestionRepository implements PastQuestionInterface
     {
         $res = $this->fileUpload($data['file']->getRealPath());
         $data['file'] = $res->getSecurePath();
+        $data['type'] = 'file';
         $data['thumbnail'] = str_replace(".pdf",".jpg",$res->getSecurePath());
         $data['file_id'] = $res->getPublicId();
         $past_question = PastQuestion::findorFail($id);
@@ -35,7 +39,7 @@ class PastQuestionRepository implements PastQuestionInterface
 
     public function getPastQuestions()
     {
-        return $this->showAll(PastQuestionResources::collection(PastQuestion::where('course_id',request()->get('course_id'))));
+        return $this->showAll(PastQuestionResources::collection(PastQuestion::where('course_id',request()->get('course_id'))->get()));
     }
 
     public function getPastQuestion($id)
@@ -52,6 +56,18 @@ class PastQuestionRepository implements PastQuestionInterface
 
     public function uploadPastQuestion($data)
     {
-
+        try {
+            Excel::import(new PastQuestionImport($data['course_id'],$data['year']),$data['file']);
+            return $this->showMessage("Past question imported successfully");
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e){
+            $failures = $e->failures();
+            foreach ($failures as $failure) {
+                $failure->row();
+                $failure->attribute();
+                $failure->errors();
+                $failure->values();
+                return $failure;
+            }
+        }
     }
 }

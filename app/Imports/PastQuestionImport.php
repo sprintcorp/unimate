@@ -21,6 +21,7 @@ use Throwable;
 class PastQuestionImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithHeadingRow,
     WithValidation,WithStartRow, WithBatchInserts, WithChunkReading
 {
+    public function __construct(private $course,private $year){}
     use SkipsErrors,SkipsFailures;
     /**
      * @param Collection $collection
@@ -30,11 +31,13 @@ class PastQuestionImport implements ToCollection,SkipsOnError,SkipsOnFailure,Wit
         foreach ($collection as $row)
         {
             $question = PastQuestion::create([
+                'course_id' => $this->course,
+                'year' => $this->year,
                 'question'=>$row['question']
             ]);
             Answers::create([
                 'past_questions_id'=>$question->id,
-                'option_one'=>$row['option_one'] ?? NULL,
+                    'option_one'=>$row['option_one'] ?? NULL,
                 'option_two'=>$row['option_two'] ?? NULL,
                 'option_three'=>$row['option_three'] ?? NULL,
                 'option_four'=>$row['option_four'] ?? NULL,

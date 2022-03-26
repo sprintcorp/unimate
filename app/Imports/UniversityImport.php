@@ -3,7 +3,9 @@
 namespace App\Imports;
 
 use App\Models\Department;
+use App\Models\University;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -31,9 +33,10 @@ class UniversityImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithH
         $uniqueCollection->all();
         foreach ($uniqueCollection as $row)
         {
-            Department::create([
+            University::create([
                 'acronym'=> $row['acronym'],
-                'name'=>$row['name']
+                'name'=>$row['name'],
+                'slug'=>Str::slug($row['name']),
             ]);
 
         }

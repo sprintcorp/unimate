@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Department;
 use App\Models\Faculty;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -33,7 +34,8 @@ class FacultyImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithHead
         {
             Faculty::create([
                 'university_id'=> $this->university,
-                'name'=>$row['name']
+                'name'=>$row['name'],
+                'slug'=> Str::slug($row['name']) . '-' . $this->university,
             ]);
 
         }
