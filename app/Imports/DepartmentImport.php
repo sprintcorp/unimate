@@ -59,6 +59,7 @@ class DepartmentImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithH
     {
         return [
             'name' => 'required|string',
+            'faculty_id' => 'integer|nullable|exists:faculties,id',
         ];
     }
 

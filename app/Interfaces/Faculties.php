@@ -10,6 +10,6 @@ interface Faculties
     public function updateFaculty($data, $id);
     public function getFaculties();
     public function getFaculty($id);
-    public function uploadFaculty($id);
+    public function uploadFaculty($data);
     public function deleteFaculty($id);
 }

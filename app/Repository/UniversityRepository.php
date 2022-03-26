@@ -5,9 +5,11 @@ namespace App\Repository;
 
 
 use App\Http\Resources\Institution\UniversityResource;
+use App\Imports\UniversityImport;
 use App\Interfaces\Universities;
 use App\Models\University;
 use App\Traits\ApiResponser;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UniversityRepository implements Universities
 {
@@ -36,9 +38,21 @@ class UniversityRepository implements Universities
         return $this->showOne(new UniversityResource(University::findorFail($id)));
     }
 
-    public function uploadUniversity($id)
+    public function uploadUniversity($data)
     {
-        // TODO: Implement uploadUniversity() method.
+        try {
+            Excel::import(new UniversityImport(),$data['file']);
+            return $this->showMessage("University imported successfully");
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e){
+            $failures = $e->failures();
+            foreach ($failures as $failure) {
+                $failure->row();
+                $failure->attribute();
+                $failure->errors();
+                $failure->values();
+                return $failure;
+            }
+        }
     }
 
     public function deleteUniversity($id)

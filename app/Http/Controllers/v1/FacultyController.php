@@ -63,4 +63,9 @@ class FacultyController extends Controller
     {
         return $this->faculty->deleteFaculty($id);
     }
+
+    public function uploadFaculty(FacultyRequest $request)
+    {
+        return $this->faculty->uploadFaculty($request->all());
+    }
 }

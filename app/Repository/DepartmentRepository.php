@@ -5,9 +5,11 @@ namespace App\Repository;
 
 
 use App\Http\Resources\Institution\DepartmentResource;
+use App\Imports\DepartmentImport;
 use App\Interfaces\Departments;
 use App\Models\Department;
 use App\Traits\ApiResponser;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentRepository implements Departments
 {
@@ -36,9 +38,21 @@ class DepartmentRepository implements Departments
         return $this->showOne(new DepartmentResource(Department::findorFail($id)));
     }
 
-    public function uploadDepartment($id)
+    public function uploadDepartment($data)
     {
-        // TODO: Implement uploadDepartment() method.
+        try {
+            Excel::import(new DepartmentImport($data['faculty_id']),$data['file']);
+            return $this->showMessage("Department imported successfully");
+        }catch (\Maatwebsite\Excel\Validators\ValidationException $e){
+            $failures = $e->failures();
+            foreach ($failures as $failure) {
+                $failure->row();
+                $failure->attribute();
+                $failure->errors();
+                $failure->values();
+                return $failure;
+            }
+        }
     }
 
     public function deleteDepartment($id)

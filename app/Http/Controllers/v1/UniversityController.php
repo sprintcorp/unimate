@@ -64,4 +64,9 @@ class UniversityController extends Controller
     {
         return $this->university->deleteUniversity($id);
     }
+
+    public function uploadUniversity(UniversityRequest $request)
+    {
+        return $this->university->uploadUniversity($request->all());
+    }
 }

@@ -25,7 +25,8 @@ class CourseMaterialRequest extends FormRequest
     {
         return [
             'course_outline_id' => 'required|exists:course_outlines,id',
-            'file' => 'required|max:1000000|mimes:pdf,doc,docx',
+            'file' => 'max:1000000|mimes:pdf,doc,docx',
+            'description'=>'string|nullable'
         ];
     }
 }

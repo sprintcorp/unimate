@@ -10,6 +10,6 @@ interface Departments
     public function updateDepartment($data, $id);
     public function getDepartments();
     public function getDepartment($id);
-    public function uploadDepartment($id);
+    public function uploadDepartment($data);
     public function deleteDepartment($id);
 }

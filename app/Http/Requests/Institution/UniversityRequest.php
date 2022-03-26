@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Institution;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class UniversityRequest extends FormRequest
 {
@@ -29,6 +30,13 @@ class UniversityRequest extends FormRequest
                 'acronym' => 'nullable|string|max:20',
             ];
         }
+
+        if (Route::current()->getName() == 'uploadUniversity') {
+            return [
+                'file' => 'required|max:1000000|mimes:xlsx,csv,xls',
+            ];
+        }
+
         return [
             'name' => 'required|string|max:100|unique:universities',
             'acronym' => 'nullable|string|max:20',

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Institution;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class FacultyRequest extends FormRequest
 {
@@ -29,6 +30,13 @@ class FacultyRequest extends FormRequest
                 'university_id' => 'integer|nullable|exists:universities,id',
             ];
         }
+
+        if (Route::current()->getName() == 'uploadFaculty') {
+            return [
+                'file' => 'required|max:1000000|mimes:xlsx,csv,xls',
+            ];
+        }
+
         return [
             'name' => 'required|string|max:100',
             'university_id' => 'integer|nullable|exists:universities,id',

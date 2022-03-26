@@ -62,4 +62,9 @@ class PastQuestionController extends Controller
     {
         return $this->past_question->deletePastQuestion($id);
     }
+
+    public function uploadPastQuestion(PastQuestionRequest $request)
+    {
+        return $this->past_question->uploadPastQuestion($request->all());
+    }
 }

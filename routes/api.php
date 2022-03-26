@@ -52,13 +52,17 @@ use Illuminate\Support\Facades\Route;
 // Institution route
     Route::group(['middleware'=>'auth:api'], function(){
         Route::resource('university',UniversityController::class);
+        Route::post('upload-university',[UniversityController::class,'uploadUniversity'])->name('uploadUniversity');
         Route::resource('faculty',FacultyController::class);
+        Route::post('upload-faculty',[FacultyController::class,'uploadFaculty'])->name('uploadFaculty');
         Route::resource('department',DepartmentController::class);
+        Route::post('upload-department',[DepartmentController::class,'uploadDepartment'])->name('uploadDepartment');
         Route::resource('institution-course',CourseController::class);
         Route::resource('course-outline',CourseOutlineController::class);
         Route::resource('course-material',CourseMaterialController::class);
         Route::post('/course-material/{id}', [CourseMaterialController::class, 'updateMaterial'])->name('updateMaterial');
         Route::resource('past-question',PastQuestionController::class);
         Route::post('/past-question/{id}', [PastQuestionController::class, 'updatePastQuestion'])->name('updatePastQuestion');
+        Route::post('/upload-past-question', [PastQuestionController::class, 'uploadPastQuestion'])->name('uploadPastQuestion');
     });
 

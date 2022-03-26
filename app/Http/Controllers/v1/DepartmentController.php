@@ -65,4 +65,9 @@ class DepartmentController extends Controller
     {
         return $this->department->deleteDepartment($id);
     }
+
+    public function uploadDepartment(DepartmentRequest $request)
+    {
+        return $this->department->uploadDepartment($request->all());
+    }
 }

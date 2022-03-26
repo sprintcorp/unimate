@@ -58,6 +58,7 @@ class FacultyImport implements ToCollection,SkipsOnError,SkipsOnFailure,WithHead
     {
         return [
             'name' => 'required|string',
+            'university_id' => 'integer|nullable|exists:universities,id',
         ];
     }
 

@@ -28,7 +28,14 @@ class PastQuestionRequest extends FormRequest
             return [
                 'course_id' => 'required|exists:courses,id',
                 'file' => 'max:1000000|mimes:pdf,doc,docx',
-                'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1)
+                'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+                'question' => 'string|nullable'
+            ];
+        }
+
+        if (Route::current()->getName() == 'uploadPastQuestion') {
+            return [
+                'file' => 'required|max:1000000|mimes:xlsx,csv,xls',
             ];
         }
 
@@ -36,6 +43,7 @@ class PastQuestionRequest extends FormRequest
             'course_id' => 'required|exists:courses,id',
             'file' => 'required|max:1000000|mimes:pdf,doc,docx',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+            'question' => 'string|nullable'
         ];
     }
 }

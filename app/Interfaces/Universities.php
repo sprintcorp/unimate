@@ -10,6 +10,6 @@ interface Universities
     public function updateUniversity($data, $id);
     public function getUniversities();
     public function getUniversity($id);
-    public function uploadUniversity($id);
+    public function uploadUniversity($data);
     public function deleteUniversity($id);
 }
