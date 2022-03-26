@@ -22,4 +22,9 @@ class PastQuestion extends Model
     {
         return $this->belongsTo(Course::class,'course_id');
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answers::class);
+    }
 }

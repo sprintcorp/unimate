@@ -49,4 +49,9 @@ class PastQuestionRepository implements PastQuestionInterface
         $past_question->delete();
         return $this->showMessage('past question deleted successfully');
     }
+
+    public function uploadPastQuestion($data)
+    {
+
+    }
 }

@@ -11,4 +11,5 @@ interface PastQuestionInterface
     public function getPastQuestions();
     public function getPastQuestion($id);
     public function deletePastQuestion($id);
+    public function uploadPastQuestion($data);
 }

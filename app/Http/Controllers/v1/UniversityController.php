@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers\v1;
 
 use App\Http\Requests\Institution\UniversityRequest;
 use App\Interfaces\Universities;
