@@ -22,7 +22,7 @@ class AuthRepository implements Auth
 
     public function register($data)
     {
-        $token_reg = Hash::make($data['email'].now());
+        $token_reg = rand(1000,9999);
         if(!array_key_exists('role_id',$data)){
             $data['role_id'] = 2;
         }
@@ -72,7 +72,7 @@ class AuthRepository implements Auth
             return $this->createNewToken($token);
         }
 
-        $token = Hash::make($data['email'].now());
+        $token = rand(1000,9999);
         $data['email_token'] = $token;
         auth()->user()->email_token = $token;
         auth()->user()->save();
@@ -157,15 +157,15 @@ class AuthRepository implements Auth
         ]);
     }
 
-    public function verify()
+    public function verify($data)
     {
-        $token = request()->get('token');
-        $user = User::where('email_token',$token)->first();
+
+        $user = User::where('email_token',$data)->first();
         if($user){
             $user->email_verified_at = now();
             $user->email_token = NULL;
             $user->save();
-            return redirect('verify-success');
+            return $this->successResponse('email verification successful',200);
         }
         return $this->errorResponse('Invalid token',400);
     }

@@ -11,5 +11,5 @@ interface Auth
     public function passwordReset($data);
     public function updateProfile($data);
     public function userProfile();
-    public function verify();
+    public function verify($data);
 }

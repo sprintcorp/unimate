@@ -73,11 +73,11 @@
                                         style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                         Hello {{$data['email']}}, you've created a new account at {{env('APP_NAME')}} —
-                                        All you have to do for now is confirm your email address.
+                                        All you have to do for now is confirm your email address with token {{$data['email_token']}}.
                                     </p>
 
-                                    <a href="{{ env('APP_URL').'/api/auth/verify?token='.$data['email_token']}}"
-                                       style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset Password</a>
+{{--                                    <a href="{{ env('APP_URL').'/api/auth/verify?token='.$data['email_token']}}"--}}
+{{--                                       style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset Password</a>--}}
                                 </td>
                             </tr>
                                                         <tr class="bottom_logo">

@@ -48,8 +48,8 @@ class AuthController extends Controller
         return $this->auth->userProfile();
     }
 
-    public function verify()
+    public function verify(Request $request)
     {
-        return $this->auth->verify();
+        return $this->auth->verify($request->token);
     }
 }
