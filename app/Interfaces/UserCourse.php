@@ -6,6 +6,6 @@ namespace App\Interfaces;
 
 interface UserCourse
 {
-    public function courseRegistration();
-    public function updateCourseRegistration();
+    public function courseRegistration($data);
+    public function updateCourseRegistration($data);
 }

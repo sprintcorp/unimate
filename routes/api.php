@@ -5,6 +5,7 @@ use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\V1\CourseController;
 use App\Http\Controllers\V1\CourseMaterialController;
 use App\Http\Controllers\V1\CourseOutlineController;
+use App\Http\Controllers\v1\CourseUserController;
 use App\Http\Controllers\V1\DepartmentController;
 use App\Http\Controllers\V1\FacultyController;
 use App\Http\Controllers\V1\NoteTakerController;
@@ -42,7 +43,7 @@ use Illuminate\Support\Facades\Route;
     Route::group(['prefix' => 'user','middleware'=>'auth:api'], function(){
         Route::post('/update-profile', [AuthController::class, 'updateProfile'])->name('update-profile');
         Route::get('/user-profile', [AuthController::class, 'userProfile']);
-
+        Route::resource('courses',CourseUserController::class);
         Route::resource('notes',NoteTakerController::class);
         Route::resource('reminder',ReminderController::class);
         Route::resource('audio',AudioRecordController::class);
