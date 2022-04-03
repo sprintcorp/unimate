@@ -27,7 +27,7 @@ class GroupRequest extends FormRequest
         if (Route::current()->getName() == 'addUserToGroup') {
             return [
                 'user_id.*' => 'required|exists:users,id',
-                'group_id' => 'required|exists:groups,id',
+//                'group_id' => 'required|exists:groups,id',
             ];
         }
 

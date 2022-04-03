@@ -62,7 +62,7 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
         return $this->group->updateGroup($request->all(),$id);
     }

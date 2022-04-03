@@ -10,6 +10,14 @@ class Group extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    protected $hidden =['pivot','deleted_at','updated_at'];
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->user_id = auth()->user()->id;
+        });
+    }
 
     public function user()
     {
