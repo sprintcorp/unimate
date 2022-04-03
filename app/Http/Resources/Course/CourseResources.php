@@ -15,14 +15,14 @@ class CourseResources extends JsonResource
     public function toArray($request)
     {
         return [
-            'department_id' => $this->department->id,
-            'department_name' => $this->department->name,
+            'department_id' => $this->department->id ?? NULL,
+            'department_name' => $this->department->name ?? NULL,
             'course_title' => $this->course_title,
             'course_code' => $this->course_code,
             'semester' => $this->semester,
             'level' => $this->level,
             'slug' => $this->slug,
-            'course_outline' => $this->courseOutline,
+            'course_outline' => $this->courseOutline ?? NULL,
         ];
     }
 }

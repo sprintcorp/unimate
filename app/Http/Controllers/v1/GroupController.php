@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Http\Requests\User\GroupRequest;
+use App\Interfaces\GroupInterface;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+    public function __construct(protected GroupInterface $group){}
+
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +18,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        return $this->group->getGroups();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +28,9 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
-        //
+        return $this->group->createGroup($request->all());
     }
 
     /**
@@ -44,20 +39,20 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group)
+    public function show($id)
     {
-        //
+        return $this->group->getGroup($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Group $group)
+
+    public function addUserToGroup(GroupRequest $request,$id)
     {
-        //
+        return $this->group->addUserToGroup($request->all(),$id);
+    }
+
+    public function removeUserFromGroup(GroupRequest $request,$id)
+    {
+        return $this->group->removeUserFromGroup($request->all(),$id);
     }
 
     /**
@@ -67,9 +62,9 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Group $group)
+    public function update(Request $request, $id)
     {
-        //
+        return $this->group->updateGroup($request->all(),$id);
     }
 
     /**
@@ -78,8 +73,8 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group)
+    public function destroy($id)
     {
-        //
+        return $this->group->deleteGroup($id);
     }
 }

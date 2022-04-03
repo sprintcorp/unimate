@@ -10,6 +10,7 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    protected $hidden = ['pivot','deleted_at','updated_at'];
 
     public function department()
     {

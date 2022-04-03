@@ -37,7 +37,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
         'role_id',
-        'email_token'
+        'email_token',
+        'pivot'
     ];
 
     /**
@@ -94,6 +95,18 @@ class User extends Authenticatable implements JWTSubject
     public function courses()
     {
         return $this->belongsToMany(Course::class,'course_users','user_id','course_id');
+    }
+
+    public function current_courses()
+    {
+        return $this->belongsToMany(Course::class,'course_users','user_id','course_id')
+            ->wherePivot('status',1);
+    }
+
+    public function past_courses()
+    {
+        return $this->belongsToMany(Course::class,'course_users','user_id','course_id')
+            ->wherePivot('status',0);
     }
 
     public function groups()

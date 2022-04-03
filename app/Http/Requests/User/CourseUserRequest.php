@@ -13,7 +13,7 @@ class CourseUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,10 @@ class CourseUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id.*' => 'required|exists:permissions,id',
+            'course_id.*' => 'required|exists:courses,id',
             'level'=>'string|required',
             'semester'=>'string|required',
+            'year'=> 'string|required'
         ];
     }
 }

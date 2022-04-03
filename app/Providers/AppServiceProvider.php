@@ -7,8 +7,10 @@ use App\Interfaces\Auth;
 use App\Interfaces\CourseInterface;
 use App\Interfaces\CourseMaterialsInterface;
 use App\Interfaces\CourseOutlinesInterface;
+use App\Interfaces\CourseUserInterface;
 use App\Interfaces\Departments;
 use App\Interfaces\Faculties;
+use App\Interfaces\GroupInterface;
 use App\Interfaces\Note;
 use App\Interfaces\PastQuestionInterface;
 use App\Interfaces\ReminderInterface;
@@ -19,8 +21,10 @@ use App\Repository\AuthRepository;
 use App\Repository\CourseMaterialRepository;
 use App\Repository\CourseOutlineRepository;
 use App\Repository\CourseRepository;
+use App\Repository\CourseUserRepository;
 use App\Repository\DepartmentRepository;
 use App\Repository\FacultyRepository;
+use App\Repository\GroupRepository;
 use App\Repository\NoteRepository;
 use App\Repository\PastQuestionRepository;
 use App\Repository\ReminderInterfaceRepository;
@@ -49,6 +53,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CourseOutlinesInterface::class,CourseOutlineRepository::class);
         $this->app->bind(CourseMaterialsInterface::class,CourseMaterialRepository::class);
         $this->app->bind(PastQuestionInterface::class,PastQuestionRepository::class);
+        $this->app->bind(CourseUserInterface::class,CourseUserRepository::class);
+        $this->app->bind(GroupInterface::class,GroupRepository::class);
     }
 
     /**

@@ -15,6 +15,11 @@ trait ApiResponser
         return response()->json(['message' =>$data],$code);
     }
 
+    private function allResponse($data,$code=200)
+    {
+        return response()->json($data,$code);
+    }
+
     protected function showModelWithMessage($model,$message,$code=200)
     {
         return response()->json(['message' => $message,'data'=>$model],$code);
