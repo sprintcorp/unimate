@@ -2,29 +2,40 @@
 
 namespace App\Http\Controllers\v1;
 
-use App\Models\Chat;
-use Illuminate\Http\Request;
+use App\Http\Requests\User\ChatRequest;
+use App\Interfaces\ChatInterface;
 
 class ChatController extends Controller
 {
+    public function __construct(protected ChatInterface $chat){}
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getGroupChat($groupId)
     {
-        //
+        return $this->chat->getGroupChat($groupId);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getCourseChat($courseId)
     {
-        //
+        return $this->chat->getCourseChat($courseId);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserChat($id)
+    {
+        return $this->chat->getUserChat($id);
     }
 
     /**
@@ -33,31 +44,14 @@ class ChatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChatRequest $request)
     {
-        //
+        return $this->chat->createChat($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Chat  $chat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Chat $chat)
+    public function searchUser(ChatRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Chat  $chat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Chat $chat)
-    {
-        //
+        return $this->chat->searchUser($request->all());
     }
 
     /**
@@ -67,9 +61,24 @@ class ChatController extends Controller
      * @param  \App\Models\Chat  $chat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Chat $chat)
+    public function update(ChatRequest $request, $id)
     {
-        //
+        return $this->chat->updateChat($request->all(),$id);
+    }
+
+    public function addUserToChat(ChatRequest $request)
+    {
+        return $this->chat->addUserToChat($request->user_id);
+    }
+
+    public function removeUserFromChat($id)
+    {
+        return $this->chat->removeUserFromChat($id);
+    }
+
+    public function getChatUsers()
+    {
+        return $this->chat->getChatUsers();
     }
 
     /**
@@ -78,8 +87,8 @@ class ChatController extends Controller
      * @param  \App\Models\Chat  $chat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chat $chat)
+    public function destroy($id)
     {
-        //
+        return $this->chat->deleteChat($id);
     }
 }

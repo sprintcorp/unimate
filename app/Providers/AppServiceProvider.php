@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Audio;
 use App\Interfaces\Auth;
+use App\Interfaces\ChatInterface;
 use App\Interfaces\CourseInterface;
 use App\Interfaces\CourseMaterialsInterface;
 use App\Interfaces\CourseOutlinesInterface;
@@ -18,6 +19,7 @@ use App\Interfaces\Roles;
 use App\Interfaces\Universities;
 use App\Repository\AudioRepository;
 use App\Repository\AuthRepository;
+use App\Repository\ChatRepository;
 use App\Repository\CourseMaterialRepository;
 use App\Repository\CourseOutlineRepository;
 use App\Repository\CourseRepository;
@@ -55,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PastQuestionInterface::class,PastQuestionRepository::class);
         $this->app->bind(CourseUserInterface::class,CourseUserRepository::class);
         $this->app->bind(GroupInterface::class,GroupRepository::class);
+        $this->app->bind(ChatInterface::class,ChatRepository::class);
     }
 
     /**

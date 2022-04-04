@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\AudioRecordController;
 use App\Http\Controllers\v1\AuthController;
+use App\Http\Controllers\v1\ChatController;
 use App\Http\Controllers\V1\CourseController;
 use App\Http\Controllers\V1\CourseMaterialController;
 use App\Http\Controllers\V1\CourseOutlineController;
@@ -49,6 +50,14 @@ use Illuminate\Support\Facades\Route;
         Route::resource('notes',NoteTakerController::class);
         Route::resource('reminder',ReminderController::class);
         Route::resource('group',GroupController::class);
+        Route::resource('chat',ChatController::class);
+        Route::get('/group-chat/{id}',[ChatController::class,'getGroupChat']);
+        Route::get('/course-chat/{id}',[ChatController::class,'getCourseChat']);
+        Route::get('/chats/{id}',[ChatController::class,'getUserChat']);
+        Route::get('/connections',[ChatController::class,'getChatUsers']);
+        Route::post('/search',[ChatController::class,'searchUser'])->name('searchUser');
+        Route::post('/add-to-chat',[ChatController::class,'addUserToChat'])->name('addUserToChat');
+        Route::delete('/remove-from-chat/{id}',[ChatController::class,'removeUserFromChat'])->name('removeUserFromChat');
         Route::post('/add-to-group/{id}',[GroupController::class,'addUserToGroup'])->name('addUserToGroup');
         Route::post('/remove-from-group/{id}',[GroupController::class,'removeUserFromGroup'])->name('removeUserFromGroup');
         Route::resource('audio',AudioRecordController::class);

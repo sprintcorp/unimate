@@ -120,6 +120,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Group::class,'group_users','user_id','group_id');
     }
 
+    public function sender()
+    {
+        return $this->belongsToMany(User::class,'sender_receiver','sender_id','receiver_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsToMany(User::class,'sender_receiver','receiver_id','sender_id');
+    }
+
     public function reminders()
     {
         return $this->hasMany(Reminder::class);
