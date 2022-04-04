@@ -30,7 +30,7 @@ class UniversityRepository implements Universities
 
     public function getUniversities()
     {
-        return $this->showAll(UniversityResource::collection(University::all()));
+        return $this->noPaginate(UniversityResource::collection(University::all()));
     }
 
     public function getUniversity($id)
