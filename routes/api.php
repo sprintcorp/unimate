@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\V1\AudioRecordController;
+use App\Http\Controllers\v1\AudioRecordController;
 use App\Http\Controllers\v1\AuthController;
 use App\Http\Controllers\v1\ChatController;
-use App\Http\Controllers\V1\CourseController;
-use App\Http\Controllers\V1\CourseMaterialController;
-use App\Http\Controllers\V1\CourseOutlineController;
+use App\Http\Controllers\v1\CourseController;
+use App\Http\Controllers\v1\CourseMaterialController;
+use App\Http\Controllers\v1\CourseOutlineController;
 use App\Http\Controllers\v1\CourseUserController;
-use App\Http\Controllers\V1\DepartmentController;
-use App\Http\Controllers\V1\FacultyController;
+use App\Http\Controllers\v1\DepartmentController;
+use App\Http\Controllers\v1\FacultyController;
 use App\Http\Controllers\v1\GroupController;
-use App\Http\Controllers\V1\NoteTakerController;
-use App\Http\Controllers\V1\PastQuestionController;
-use App\Http\Controllers\V1\ReminderController;
+use App\Http\Controllers\v1\NoteTakerController;
+use App\Http\Controllers\v1\PastQuestionController;
+use App\Http\Controllers\v1\ReminderController;
 use App\Http\Controllers\v1\RoleController;
-use App\Http\Controllers\V1\UniversityController;
+use App\Http\Controllers\v1\UniversityController;
 use Illuminate\Support\Facades\Route;
 
 /*
