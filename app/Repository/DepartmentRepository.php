@@ -31,7 +31,7 @@ class DepartmentRepository implements Departments
     public function getDepartments()
     {
         if(auth()->user() && auth()->user()->role_id == 2) {
-            return $this->showAll(DepartmentResource::collection(Department::where('faculty_id', auth()->user()->student->department_id)->get()));
+            return $this->showAll(DepartmentResource::collection(Department::where('faculty_id', auth()->user()->student->faculty_id)->get()));
         }
         return $this->showAll(DepartmentResource::collection(Department::where('faculty_id', request()->get('faculty_id'))->get()));
 

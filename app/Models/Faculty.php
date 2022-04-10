@@ -30,4 +30,9 @@ class Faculty extends Model
     {
         return $this->hasMany(Department::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }

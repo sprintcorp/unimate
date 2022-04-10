@@ -35,4 +35,9 @@ class Department extends Model
     {
         return $this->hasMany(Timetable::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }

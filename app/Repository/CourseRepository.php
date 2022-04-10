@@ -27,6 +27,10 @@ class CourseRepository implements CourseInterface
 
     public function getCourses()
     {
+        if(auth()->user() && auth()->user()->role_id == 2) {
+            $courses = Course::where('department_id',auth()->user()->student->department_id)->get();
+            return $this->showAll(CourseResources::collection($courses));
+        }
         $courses = Course::where('department_id',request()->get('department_id'))->get();
         return $this->showAll(CourseResources::collection($courses));
     }

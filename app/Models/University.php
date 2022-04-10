@@ -30,4 +30,10 @@ class University extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+
 }
