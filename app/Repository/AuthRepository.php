@@ -32,6 +32,7 @@ class AuthRepository implements Auth
                 'email'=> $data['email'],
                 'role_id'=> $data['role_id'],
                 'password' => Hash::make($data['password']),
+                'username' => $data['username'] ?? NULL,
                 'email_token' => $token_reg
             ]);
             $role = $data['role_id'];
@@ -41,6 +42,7 @@ class AuthRepository implements Auth
             $userData['email_token'] = $token_reg;
             unset($data['email']);
             unset($data['password']);
+            unset($data['username']);
             unset($data['role_id']);
             if(array_key_exists('image',$data)){
                 $image = $this->fileUpload($data['image']->getRealPath());
@@ -64,7 +66,17 @@ class AuthRepository implements Auth
 
     public function login($data)
     {
-        if (!$token = auth()->attempt($data)) {
+        $username = $data['username'];
+
+        if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            //user sent their email
+            $token = auth()->attempt(['email' => $username, 'password' => $data['password']]);
+        } else {
+            //they sent their username instead
+            $token = auth()->attempt(['username' => $username, 'password' => $data['password']]);
+        }
+
+        if (!$token) {
             return $this->errorResponse('invalid login credentials', 404);
         }
 
@@ -124,7 +136,8 @@ class AuthRepository implements Auth
                 return $this->errorResponse('Password is incorrect', 404);
             }
         }
-        auth()->user()->email = $data['email'];
+        auth()->user()->email = $data['email'] ?? NULL;
+        auth()->user()->username = $data['username'] ?? NULL;
         auth()->user()->save();
         unset($data['email']);
         unset($data['password']);
@@ -135,7 +148,17 @@ class AuthRepository implements Auth
         }
         if(\auth()->user()->role_id == 1)
         {
-            auth()->user()->admin->update($data);
+
+            auth()->user()->admin->update([
+                'firstname'=>$data['firstname'] ?? NULL,
+                'lastname'=>$data['lastname'] ?? NULL,
+                'other_name'=>$data['other_name'] ?? NULL,
+                'phone'=>$data['phone'] ?? NULL,
+                'gender'=>$data['gender'] ?? NULL,
+                'birth_date'=>$data['birth_date'] ?? NULL,
+                'image'=>$data['image'] ?? NULL,
+                'image_id'=>$data['image_id'] ?? NULL,
+            ]);
         }else{
             auth()->user()->student->update($data);
         }

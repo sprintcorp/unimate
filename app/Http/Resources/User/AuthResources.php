@@ -16,6 +16,7 @@ class AuthResources extends JsonResource
     {
         return [
             'user_email' => $this->email,
+            'username' => $this->username,
             'user_role' => $this->role->name,
             'other_information' => $this->role_id == 1 ? $this->admin : $this->student,
         ];
