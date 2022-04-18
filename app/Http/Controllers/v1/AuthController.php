@@ -18,6 +18,11 @@ class AuthController extends Controller
         return $this->auth->register($request->all());
     }
 
+    public function accountSetup(RegistrationRequest $request)
+    {
+        return $this->auth->accountSetup($request->all());
+    }
+
     public function login(LoginRequest $request)
     {
         return $this->auth->login($request->all());

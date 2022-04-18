@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Route;
     Route::group(['prefix' => 'user','middleware'=>'auth:api'], function(){
         Route::post('/update-profile', [AuthController::class, 'updateProfile'])->name('update-profile');
         Route::get('/user-profile', [AuthController::class, 'userProfile']);
+        Route::post('/account-setup', [AuthController::class, 'accountSetup'])->name('accountSetup');
         Route::resource('courses',CourseUserController::class);
         Route::put('update-courses',[CourseUserController::class,'updateCourse'])->name('updateCourse');
         Route::resource('notes',NoteTakerController::class);

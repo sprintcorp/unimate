@@ -10,6 +10,7 @@ interface Auth
     public function reset($data);
     public function passwordReset($data);
     public function updateProfile($data);
+    public function accountSetup($data);
     public function userProfile();
     public function verify($data);
 }

@@ -64,15 +64,58 @@ class AuthRepository implements Auth
         }
     }
 
+    public function accountSetup($data)
+    {
+        try {
+            DB::beginTransaction();
+            if(request()->has('username'))
+            {
+                auth()->user()->update([
+                    'username'=>$data['username'] ?? NULL,
+                ]);
+            }
+            if(array_key_exists('image',$data)){
+                $image = $this->fileUpload($data['image']->getRealPath());
+                $image_url = $image->getSecurePath();
+                $image_id = $image->getPublicId();
+            }
+            auth()->user()->student->update([
+                'university_id'=>$data['university_id'] ?? NULL,
+                'faculty_id'=>$data['faculty_id'] ?? NULL,
+                'department_id'=>$data['department_id'] ?? NULL,
+                'level'=>$data['level'] ?? NULL,
+                'semester'=>$data['semester'] ?? NULL,
+                'gender'=>$data['gender'] ?? NULL,
+                'birth_date'=>$data['birth_date'] ?? NULL,
+                'image'=> $image_url ?? NULL,
+                'image_id'=> $image_id ?? NULL,
+            ]);
+            if(request()->has('course_id')) {
+                auth()->user()->current_courses()->sync($data['course_id'],
+                    [
+                        'level' => $data['level'],
+                        'semester' => $data['semester'],
+                        'year' => $data['year'],
+                        'created_at' => now(),
+                    ]);
+            }
+
+            DB::commit();
+            return $this->successResponse('account setup successful',200);
+
+        } catch(\Exception $exp) {
+            DB::rollBack();
+            return $this->errorResponse($exp->getMessage(),400);
+        }
+    }
+
     public function login($data)
     {
         $username = $data['username'];
 
         if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            //user sent their email
             $token = auth()->attempt(['email' => $username, 'password' => $data['password']]);
         } else {
-            //they sent their username instead
             $token = auth()->attempt(['username' => $username, 'password' => $data['password']]);
         }
 
@@ -86,6 +129,7 @@ class AuthRepository implements Auth
 
         $token = rand(1000,9999);
         $data['email_token'] = $token;
+        $data['email'] = auth()->user()->email;
         auth()->user()->email_token = $token;
         auth()->user()->save();
         Mail::to($data['email'])->send(new EmailVerificationMail($data));
@@ -192,4 +236,5 @@ class AuthRepository implements Auth
         }
         return $this->errorResponse('Invalid token',400);
     }
+
 }

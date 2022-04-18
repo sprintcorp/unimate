@@ -46,6 +46,25 @@ class RegistrationRequest extends FormRequest
                 'gender' => 'string|nullable',
             ];
         }
+
+        if (Route::current()->getName() == 'accountSetup') {
+
+            return [
+                'university_id' => 'integer|nullable|exists:universities,id',
+                'faculty_id' => 'integer|nullable|exists:faculties,id',
+                'department_id' => 'integer|nullable|exists:departments,id',
+                'course_id' => 'integer|nullable|exists:courses,id',
+                'phone' => 'nullable|string|unique:students,phone,'.auth()->user()->id.',id,deleted_at,NULL',
+                'username' => 'nullable|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
+                'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
+                'other_name' => 'string|nullable',
+                'cgpa' => 'string|nullable',
+                'level' => 'string|nullable',
+                'birth_date' => 'date_format:Y-m-d|nullable|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
+                'gender' => 'string|nullable',
+            ];
+        }
+
         if (Route::current()->getName() == 'register') {
             return [
                 'email' => 'required|string|email|max:100|unique:users,email,NULL,id,deleted_at,NULL',
