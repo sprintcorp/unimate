@@ -83,19 +83,20 @@ class AuthRepository implements Auth
                 'university_id'=>$data['university_id'] ?? NULL,
                 'faculty_id'=>$data['faculty_id'] ?? NULL,
                 'department_id'=>$data['department_id'] ?? NULL,
-                'level'=>$data['level'] ?? NULL,
+                'level'=> $data['level'] ?? NULL,
                 'semester'=>$data['semester'] ?? NULL,
                 'gender'=>$data['gender'] ?? NULL,
                 'birth_date'=>$data['birth_date'] ?? NULL,
                 'image'=> $image_url ?? NULL,
                 'image_id'=> $image_id ?? NULL,
             ]);
+//            dd($data['level']);
             if(request()->has('course_id')) {
-                auth()->user()->current_courses()->sync($data['course_id'],
+                auth()->user()->courses()->attach($data['course_id'],
                     [
                         'level' => $data['level'],
                         'semester' => $data['semester'],
-                        'year' => $data['year'],
+                        'year' => date('Y'),
                         'created_at' => now(),
                     ]);
             }

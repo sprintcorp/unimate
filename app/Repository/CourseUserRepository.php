@@ -16,7 +16,7 @@ class CourseUserRepository implements CourseUserInterface
     use ApiResponser;
     public function courseRegistration($data)
     {
-        auth()->user()->current_courses()->attach($data['course_id'],
+        auth()->user()->courses()->attach($data['course_id'],
             [
                 'level'=>$data['level'],
                 'semester'=>$data['semester'],

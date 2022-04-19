@@ -53,7 +53,7 @@ class RegistrationRequest extends FormRequest
                 'university_id' => 'integer|nullable|exists:universities,id',
                 'faculty_id' => 'integer|nullable|exists:faculties,id',
                 'department_id' => 'integer|nullable|exists:departments,id',
-                'course_id' => 'integer|nullable|exists:courses,id',
+                'course_id' => 'nullable|exists:courses,id',
                 'phone' => 'nullable|string|unique:students,phone,'.auth()->user()->id.',id,deleted_at,NULL',
                 'username' => 'nullable|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
                 'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
