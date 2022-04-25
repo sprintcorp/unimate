@@ -18,6 +18,7 @@ class PastQuestionResources extends JsonResource
             'course_title'=>$this->course->course_title,
             'course_code'=>$this->course->course_code,
             'course_id'=>$this->course->id,
+            'past_question_id'=>$this->id,
             'type'=>$this->type,
             'question'=>$this->type == 'file' ? $this->file : $this->question,
             'answers'=> $this->type == 'text' ? AnswerResources::collection($this->answers) : NULL,

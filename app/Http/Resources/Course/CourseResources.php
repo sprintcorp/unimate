@@ -18,6 +18,7 @@ class CourseResources extends JsonResource
             'department_id' => $this->department->id ?? NULL,
             'department_name' => $this->department->name ?? NULL,
             'course_title' => $this->course_title,
+            'course_id' => $this->id,
             'course_code' => $this->course_code,
             'semester' => $this->semester,
             'level' => $this->level,
