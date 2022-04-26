@@ -50,18 +50,18 @@ class RegistrationRequest extends FormRequest
         if (Route::current()->getName() == 'accountSetup') {
 
             return [
-                'university_id' => 'integer|nullable|exists:universities,id',
-                'faculty_id' => 'integer|nullable|exists:faculties,id',
-                'department_id' => 'integer|nullable|exists:departments,id',
-                'course_id' => 'nullable|exists:courses,id',
-                'phone' => 'nullable|string|unique:students,phone,'.auth()->user()->id.',id,deleted_at,NULL',
-                'username' => 'nullable|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
-                'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
-                'other_name' => 'string|nullable',
-                'cgpa' => 'string|nullable',
-                'level' => 'string|nullable',
-                'birth_date' => 'date_format:Y-m-d|nullable|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
-                'gender' => 'string|nullable',
+                'university_id' => 'integer|required|exists:universities,id',
+                'faculty_id' => 'integer|required|exists:faculties,id',
+                'department_id' => 'integer|required|exists:departments,id',
+                'course_id' => 'required|exists:courses,id',
+                'phone' => 'required|string|unique:students,phone,'.auth()->user()->id.',id,deleted_at,NULL',
+                'username' => 'required|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
+                'image' => 'required|max:20000|mimes:jpeg,jpg,png|nullable',
+                'other_name' => 'string|required',
+                'cgpa' => 'string|required',
+                'level' => 'string|required',
+                'birth_date' => 'date_format:Y-m-d|required|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
+                'gender' => 'string|required',
             ];
         }
 
