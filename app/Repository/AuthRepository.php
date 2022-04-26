@@ -186,6 +186,8 @@ class AuthRepository implements Auth
         auth()->user()->save();
         unset($data['email']);
         unset($data['password']);
+        unset($data['username']);
+        unset($data['old_password']);
         if(array_key_exists('image',$data)){
             $image = $this->fileUpload($data['image']->getRealPath());
             $data['image'] = $image->getSecurePath();

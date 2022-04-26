@@ -30,7 +30,7 @@ class FacultyRepository implements Faculties
 
     public function getFaculties()
     {
-        if(auth()->user() && auth()->user()->role_id == 2) {
+        if(auth()->user() && auth()->user()->role_id == 2){
             return $this->showAll(FacultyResource::collection(Faculty::where('university_id', auth()->user()->student->university_id)->get()));
         }
         return $this->showAll(FacultyResource::collection(Faculty::where('university_id', request()->get('university_id'))->get()));
