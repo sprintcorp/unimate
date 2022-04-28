@@ -60,7 +60,7 @@ class RegistrationRequest extends FormRequest
                 'image' => 'required|max:20000|mimes:jpeg,jpg,png|nullable',
                 'cgpa' => 'string|required',
                 'semester' => 'string|required|in:first,second',
-                'birth_date' => 'date_format:Y-m-d|required|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
+                'birth_date' => 'date_format:Y-m-d|nullable|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
                 'gender' => 'string|required',
             ];
         }
