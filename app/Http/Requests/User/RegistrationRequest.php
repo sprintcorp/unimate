@@ -40,6 +40,7 @@ class RegistrationRequest extends FormRequest
                 'username' => 'nullable|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
                 'image' => 'max:20000|mimes:jpeg,jpg,png|nullable',
                 'other_name' => 'string|nullable',
+                'semester' => 'string|nullable|in:first,second',
                 'cgpa' => 'string|nullable',
                 'level' => 'string|nullable',
                 'birth_date' => 'date_format:Y-m-d|nullable|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
@@ -57,8 +58,8 @@ class RegistrationRequest extends FormRequest
 //                'phone' => 'required|string|unique:students,phone,'.auth()->user()->student->id.',id,deleted_at,NULL',
                 'username' => 'required|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
                 'image' => 'required|max:20000|mimes:jpeg,jpg,png|nullable',
-//                'cgpa' => 'string|required',
-                'level' => 'string|required',
+                'cgpa' => 'string|required',
+                'semester' => 'string|required|in:first,second',
                 'birth_date' => 'date_format:Y-m-d|required|before:' . Carbon::now()->subYears(14)->format('Y-m-d'),
                 'gender' => 'string|required',
             ];
