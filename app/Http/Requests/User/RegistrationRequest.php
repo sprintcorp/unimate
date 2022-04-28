@@ -54,7 +54,7 @@ class RegistrationRequest extends FormRequest
                 'faculty_id' => 'integer|required|exists:faculties,id',
                 'department_id' => 'integer|required|exists:departments,id',
                 'course_id' => 'required|exists:courses,id',
-                'phone' => 'required|string|unique:students,phone,'.auth()->user()->student->id.',id,deleted_at,NULL',
+//                'phone' => 'required|string|unique:students,phone,'.auth()->user()->student->id.',id,deleted_at,NULL',
                 'username' => 'required|string|unique:users,username,'.auth()->user()->id.',id,deleted_at,NULL',
                 'image' => 'required|max:20000|mimes:jpeg,jpg,png|nullable',
 //                'cgpa' => 'string|required',
