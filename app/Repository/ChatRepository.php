@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Events\MessageSent;
 use App\Http\Resources\User\StudentResources;
 use App\Interfaces\ChatInterface;
 use App\Models\Chat;
@@ -17,6 +18,8 @@ class ChatRepository implements ChatInterface
     {
         $data['type'] = 'text';
         $chat = Chat::create($data);
+        broadcast(new MessageSent(auth()->user()->id, $data['receiver_id'] ?? '',$data['course_id'] ?? '',
+            $data['group_id']?? '', auth()->user()->student->university_id ?? '',$data['message'] ?? '',$data['type'] ?? ''))->toOthers();
         return $this->showOne($chat,201);
     }
 
@@ -24,6 +27,8 @@ class ChatRepository implements ChatInterface
     {
         $chat = Chat::findorFail($id);
         $chat->update($data);
+        broadcast(new MessageSent(auth()->user()->id, $data['receiver_id'] ?? '',$data['course_id'] ?? '',
+            $data['group_id']?? '', auth()->user()->student->university_id ?? '',$data['message'] ?? '',$data['type'] ?? ''))->toOthers();
         return $this->showMessage('chat updated successful');
     }
 

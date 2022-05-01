@@ -20,6 +20,7 @@ class AuthController extends Controller
 
     public function accountSetup(RegistrationRequest $request)
     {
+
         return $this->auth->accountSetup($request->all());
     }
 
